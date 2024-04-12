@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogo de Receitas</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body class="container-fluid bg-warning">
+    <h1 class="text-center mt-4">Catálogo de Receitas</h1>
+    <div
+      id="pnlCatalogo"
+      class="d-flex flex-wrap justify-content-around mt-4"
+    ></div>
+
+    <script>
+      const receitas = [
+        {
+          titulo: "Bolo de Chocolate",
+          imagem: "img/bolo_chocolate.webp",
+          preparo:
+            "Passo 1: Preaqueça o forno. Passo 2: Misture os ingredientes. Passo 3: Asse por 30 minutos.",
+          ingredientes: [
+            "Farinha de trigo",
+            "Açúcar",
+            "Ovo",
+            "Chocolate em pó",
+            "Leite",
+            "Fermento em pó",
+          ],
+        },
+        {
+          titulo: "Pudim de Leite",
+          imagem: "img/pudimleite.jpg",
+          preparo:
+            "Passo 1: Prepare a calda. Passo 2: Bata os ingredientes. Passo 3: Asse em banho-maria.",
+          ingredientes: ["Leite condensado", "Leite", "Ovo", "Açúcar"],
+        },
+        {
+          titulo: "Lasanha à Bolonhesa",
+          imagem: "img/lasanha.jpg",
+          preparo:
+            "Passo 1: Cozinhe a massa. Passo 2: Prepare o molho bolonhesa. Passo 3: Monte as camadas.",
+          ingredientes: [
+            "Massa de lasanha",
+            "Carne moída",
+            "Molho de tomate",
+            "Queijo",
+            "Presunto",
+            "Cebola",
+            "Alho",
+          ],
+        },
+      ];
+
+      function getListaIngredientes(receita) {
+        return `<ul>${receita.ingredientes
+          .map((ingrediente) => `<li>${ingrediente}</li>`)
+          .join("")}</ul>`;
+      }
+
+      function getCard(receita) {
+        return `
+                <div class="card mb-4" style="width: 250px;">
+                    <img src="${receita.imagem}" class="card-img-top" alt="${
+          receita.titulo
+        }">
+                    <div class="card-body">
+                        <h5 class="card-title">${receita.titulo}</h5>
+                        <div class="card-text">
+                            ${getListaIngredientes(receita)}
+                            <hr>
+                            <p>${receita.preparo}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+      }
+
+      function preencheCatalogo() {
+        const pnlCatalogo = document.getElementById("pnlCatalogo");
+        const htmlReceitas = receitas
+          .map((receita) => getCard(receita))
+          .reduce((acc, curr) => acc + curr, "");
+        pnlCatalogo.innerHTML = htmlReceitas;
+      }
+
+      window.onload = preencheCatalogo;
+    </script>
+  </body>
+</html>
